@@ -1,0 +1,15 @@
+.main {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: darkgray;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &.selectionBoxActive {
+    user-select: none;
+  }
+}

@@ -1,0 +1,17 @@
+.main {
+  align-self: stretch;
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+}
+
+.grid {
+  flex: 1 1 auto;
+  display: grid;
+  max-width: 600px;
+  gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+}
