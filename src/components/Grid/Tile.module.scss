@@ -10,15 +10,19 @@
   touch-action: none;
   box-shadow: 2px 2px 0 0 black;
   border: 1px solid black;
-  transition: 50ms ease-out;
+  transition: 100ms ease-out;
   transition-property: box-shadow, transform;
+  z-index: 0;
 
-  &.inWord {
-    transform: scale(0.99);
+  &.inWord,
+  &.validWord {
+    z-index: 2;
+    transform: scale(0.98);
     box-shadow: 0 1px 0 0 black;
+    background-color: lightgray;
   }
 
-  &.inWord {
+  &.validWord {
     background-color: lightgreen;
   }
 
@@ -27,4 +31,8 @@
     padding-bottom: 100%;
     display: block;
   }
+}
+
+.letter {
+  display: block;
 }

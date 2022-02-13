@@ -1,7 +1,8 @@
-import { animated, SpringValue } from "@react-spring/web";
+import { animated, SpringValue, to } from "@react-spring/web";
 import { FC, useMemo } from "react";
-import styles from "./Line.module.scss";
 import { TilePositions } from "../../context/TilePositions/context";
+import useWindowSize from "../../hooks/useWindowSize";
+import styles from "./Line.module.scss";
 
 export type LineProps = {
   word: Set<number>;
@@ -18,6 +19,8 @@ const Line: FC<LineProps> = ({
   dragX,
   dragY,
 }) => {
+  const { width, height } = useWindowSize();
+
   const edges = useMemo(() => {
     const tiles = Array.from(word.keys());
     const lastTile = tiles.length - 1;
@@ -30,11 +33,18 @@ const Line: FC<LineProps> = ({
     ]);
   }, [word, dragX, tilePositions, dragY]);
 
+  const viewBox = to([width, height, gridSize], (width, height, gridSize) => {
+    console.log(gridSize);
+    const minY = (gridSize - height) / 2;
+    const minX = (gridSize - width) / 2;
+    return `${minX} ${minY} ${width} ${height}`;
+  });
+
   return (
     <animated.svg
-      viewBox={gridSize.to((size) => `0 0 ${size} ${size}`)}
+      viewBox={viewBox}
       className={styles.main}
-      style={{ width: gridSize, height: gridSize }}
+      style={{ width, height }}
     >
       {edges.map(([p1, p2], key) => (
         <animated.line

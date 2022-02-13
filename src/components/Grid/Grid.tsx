@@ -85,13 +85,6 @@ const Grid: FC = () => {
   });
 
   const handleDragEnd = useCallbackRef(() => {
-    const tiles = word.keys();
-    const joinedWord = Array.from(tiles)
-      .map((index) => grid[index])
-      .join("");
-
-    console.log(joinedWord);
-
     setDragging(false);
     setWord(new Set());
     setActiveLetter(null);
@@ -110,9 +103,14 @@ const Grid: FC = () => {
         {grid.map((letter, index) => (
           <Tile
             key={index}
-            index={index}
             letter={letter}
-            inWord={word.has(index)}
+            status={
+              word.has(index)
+                ? Array.from(word.keys()).length === 3
+                  ? "validWord"
+                  : "inWord"
+                : "none"
+            }
             onDragStart={() => handleDragStart(index)}
             onDrag={handleDrag}
             onDragEnd={handleDragEnd}

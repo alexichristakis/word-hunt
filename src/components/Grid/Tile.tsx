@@ -1,3 +1,4 @@
+import { animated } from "@react-spring/web";
 import {
   createUseGesture,
   dragAction,
@@ -7,15 +8,17 @@ import {
 import classNames from "classnames/bind";
 import { FC, useRef } from "react";
 import { Letter } from "../../common/letters";
+import useTileSize from "../../context/TilePositions/useTileSize";
 import styles from "./Tile.module.scss";
 
 const useGesture = createUseGesture([dragAction, hoverAction, moveAction]);
 
 const cx = classNames.bind(styles);
 
+export type TileStatus = "none" | "inWord" | "validWord";
+
 type TileProps = {
-  inWord?: boolean;
-  index: number;
+  status: TileStatus;
   letter: Letter;
   onDragStart?: () => void;
   onDrag?: (x: number, y: number) => void;
@@ -23,14 +26,14 @@ type TileProps = {
 };
 
 const Tile: FC<TileProps> = ({
-  index,
-  inWord = false,
+  status = "none",
   letter,
   onDrag,
   onDragStart,
   onDragEnd,
 }) => {
   const ref = useRef<HTMLLIElement>(null);
+  const tileSize = useTileSize();
 
   useGesture(
     {
@@ -45,9 +48,12 @@ const Tile: FC<TileProps> = ({
     }
   );
 
+  const transform = tileSize.to((size) => `scale(${size / 48})`);
   return (
-    <li ref={ref} className={cx("main", { inWord })}>
-      {letter}
+    <li ref={ref} className={cx("main", status)}>
+      <animated.span className={cx("letter")} style={{ transform }}>
+        {letter}
+      </animated.span>
     </li>
   );
 };
