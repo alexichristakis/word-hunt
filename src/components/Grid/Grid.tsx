@@ -1,5 +1,4 @@
 import { useSpring } from "@react-spring/web";
-import classNames from "classnames/bind";
 import { FC, useRef, useState } from "react";
 import { indexToCoordinates } from "../../common/utils";
 import useGrid from "../../context/Grid/useGrid";
@@ -10,8 +9,6 @@ import useCallbackRef from "../../hooks/useCallbackRef";
 import styles from "./Grid.module.scss";
 import Line from "./Line";
 import Tile from "./Tile";
-
-const cx = classNames.bind(styles);
 
 const Grid: FC = () => {
   const grid = useGrid();

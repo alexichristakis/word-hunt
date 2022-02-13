@@ -32,7 +32,6 @@ const TilePositionsProvider: FC = ({ children }) => {
 
     tilePositions.forEach((position, index) => {
       const { x, y } = getTilePosition(index);
-      console.log(index, [x, y]);
       position.x.set(x);
       position.y.set(y);
     });

@@ -34,7 +34,6 @@ const Line: FC<LineProps> = ({
   }, [word, dragX, tilePositions, dragY]);
 
   const viewBox = to([width, height, gridSize], (width, height, gridSize) => {
-    console.log(gridSize);
     const minY = (gridSize - height) / 2;
     const minX = (gridSize - width) / 2;
     return `${minX} ${minY} ${width} ${height}`;
