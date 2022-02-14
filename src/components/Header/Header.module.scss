@@ -1,13 +1,8 @@
 .main {
   flex: 1 0 0;
+  align-self: stretch;
+  padding: 20px;
   display: flex;
-  align-items: center;
-}
-
-.word {
-  padding: 0 20px;
-  font-size: 72px;
-  letter-spacing: 2px;
-  color: white;
-  line-height: 60px;
+  flex-direction: column;
+  justify-content: space-between;
 }

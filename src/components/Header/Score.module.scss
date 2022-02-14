@@ -1,0 +1,15 @@
+.main {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.score {
+  font-size: 48px;
+  color: white;
+  transition: 250ms ease-out;
+  transition-property: transform;
+
+  &.counting {
+    transform: scale(1.1);
+  }
+}
