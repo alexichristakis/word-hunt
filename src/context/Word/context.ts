@@ -1,7 +1,4 @@
-import { createContext } from "react";
+import { createContext, Dispatch, SetStateAction } from "react";
 
-export const WordContext = createContext(new Set<number>());
-
-export const SetWordContext = createContext<(word: Set<number>) => void>(
-  () => {}
-);
+type State = [Set<number>, Dispatch<SetStateAction<Set<number>>>];
+export const WordContext = createContext<State>([new Set<number>(), () => {}]);

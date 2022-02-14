@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://alexichristakis.github.io/word-hunt",
   "dependencies": {
-    "@react-spring/web": "^9.4.2",
+    "@react-spring/web": "^9.4.3",
     "@use-gesture/react": "^10.2.6",
     "classnames": "^2.3.1",
     "react": "^17.0.2",
@@ -16,9 +16,11 @@
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
     "@types/seedrandom": "^3.0.2",
+    "raw-loader": "^4.0.2",
     "react-scripts": "5.0.0",
     "sass": "^1.49.7",
-    "typescript": "^4.5.5"
+    "typescript": "^4.5.5",
+    "wordlist-english": "^1.2.1"
   },
   "scripts": {
     "start": "react-scripts start",

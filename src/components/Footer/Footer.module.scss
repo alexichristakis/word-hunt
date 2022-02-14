@@ -1,4 +1,15 @@
 .main {
   flex: 1 0 0;
-  padding: 0 20px;
+  display: flex;
+  align-items: center;
+}
+
+.score {
+  font-size: 48px;
+  color: white;
+  transition: transform 250ms ease-out;
+
+  &.counting {
+    transform: scale(1.5);
+  }
 }

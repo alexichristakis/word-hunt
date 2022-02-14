@@ -15,7 +15,7 @@ const useGesture = createUseGesture([dragAction, hoverAction, moveAction]);
 
 const cx = classNames.bind(styles);
 
-export type TileStatus = "none" | "inWord" | "validWord";
+export type TileStatus = "none" | "inWord" | "foundWord" | "validWord";
 
 type TileProps = {
   status: TileStatus;

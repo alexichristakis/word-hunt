@@ -3,7 +3,7 @@ import useGrid from "../context/Grid/useGrid";
 import useWord from "../context/Word/useWord";
 
 const useCurrentWord = () => {
-  const word = useWord();
+  const [word] = useWord();
   const grid = useGrid();
 
   return useMemo(() => {

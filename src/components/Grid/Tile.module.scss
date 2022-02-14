@@ -15,7 +15,8 @@
   z-index: 0;
 
   &.inWord,
-  &.validWord {
+  &.validWord,
+  &.foundWord {
     z-index: 2;
     transform: scale(0.98);
     box-shadow: 0 1px 0 0 black;
@@ -24,6 +25,10 @@
 
   &.validWord {
     background-color: lightgreen;
+  }
+
+  &.foundWord {
+    background-color: lightyellow;
   }
 
   &::before {
