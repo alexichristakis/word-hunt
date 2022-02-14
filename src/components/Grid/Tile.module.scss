@@ -1,5 +1,11 @@
+$shadow: rgb(59, 61, 63);
+$face: rgb(240, 248, 255);
+$pressed: rgb(212, 212, 212);
+$valid: rgb(147, 236, 147);
+$found: rgb(255, 255, 167);
+
 .main {
-  background-color: rgb(59, 61, 63);
+  background-color: $shadow;
   font-size: 20px;
   display: flex;
   touch-action: none;
@@ -16,10 +22,6 @@
     content: "";
     padding-bottom: 100%;
     display: block;
-
-    ::selection {
-      background-color: transparent;
-    }
   }
 }
 
@@ -32,27 +34,33 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: aliceblue;
+  background-color: $face;
   width: 100%;
   height: 100%;
   transition: 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
   transition-property: transform;
   transform: translateY(-6px);
+  border: 1px solid $shadow;
+  transition-property: transform, background-color;
 
   &.inWord,
   &.validWord,
   &.foundWord {
     transform: translateY(-2px);
     transition: transform 100ms;
-    background-color: rgb(212, 212, 212);
+    transition-property: transform;
+  }
+
+  &.inWord {
+    background-color: $pressed;
   }
 
   &.validWord {
-    background-color: rgb(147, 236, 147);
+    background-color: $valid;
   }
 
   &.foundWord {
-    background-color: rgb(255, 255, 167);
+    background-color: $found;
   }
 }
 

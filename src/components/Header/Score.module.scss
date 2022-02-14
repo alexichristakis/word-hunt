@@ -4,13 +4,18 @@
 }
 
 .score {
-  font-size: 48px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 4px 12px;
+}
+
+.number {
+  font-size: 32px;
+  display: block;
   color: white;
-  transition: 250ms ease-out;
-  transition-property: transform;
-  transform-origin: right;
+  transition: transform 250ms ease-out;
 
   &.counting {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 }
