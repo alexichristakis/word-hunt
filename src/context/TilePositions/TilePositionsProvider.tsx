@@ -26,7 +26,7 @@ const TilePositionsProvider: FC = ({ children }) => {
     return { x, y };
   });
 
-  useWindowSize(({ width, height }) => {
+  useWindowSize(({ width }) => {
     gridSize.set(Math.min(width - GRID_GAP * 2, GRID_MAX_WIDTH));
     tileSize.set((gridSize.get() - (GRID_SIZE - 1) * GRID_GAP) / GRID_SIZE);
 

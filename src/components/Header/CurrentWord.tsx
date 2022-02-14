@@ -5,6 +5,7 @@ import { FC, useMemo } from "react";
 import measureText from "../../common/measureText";
 import useCurrentWord from "../../hooks/useCurrentWord";
 import useWindowSize from "../../hooks/useWindowSize";
+import { GRID_MAX_WIDTH } from "../../common/constants";
 
 const cx = classNames.bind(styles);
 
@@ -20,7 +21,8 @@ const CurrentWord: FC = () => {
 
   const wordScale = to(
     [width, wordWidth],
-    (width, wordWidth) => `scale(${Math.min(1, (width - 40) / wordWidth)})`
+    (width, wordWidth) =>
+      `scale(${Math.min(1, Math.min(width - 40, GRID_MAX_WIDTH) / wordWidth)})`
   );
 
   return (
