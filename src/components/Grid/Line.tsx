@@ -47,7 +47,7 @@ const Line: FC<LineProps> = ({
     >
       {edges.map(([p1, p2], key) => (
         <animated.line
-          key={key}
+          key={`${key}/${edges.length}`}
           x1={p1.x}
           x2={p2.x}
           y1={p1.y}
