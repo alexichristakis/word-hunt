@@ -9,7 +9,7 @@ import useWindowSize from "../../hooks/useWindowSize";
 const cx = classNames.bind(styles);
 
 const CurrentWord: FC = () => {
-  const currentWord = useCurrentWord().toUpperCase();
+  const currentWord = useCurrentWord();
 
   const wordWidth = useMemo(
     () => measureText(currentWord, 72) ?? 0,

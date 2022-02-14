@@ -51,9 +51,11 @@ const Tile: FC<TileProps> = ({
   const transform = tileSize.to((size) => `scale(${size / 48})`);
   return (
     <li ref={ref} className={cx("main", status)}>
-      <animated.span className={cx("letter")} style={{ transform }}>
-        {letter}
-      </animated.span>
+      <span className={cx("face", status)}>
+        <animated.span className={cx("letter")} style={{ transform }}>
+          {letter}
+        </animated.span>
+      </span>
     </li>
   );
 };

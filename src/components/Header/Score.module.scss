@@ -9,7 +9,6 @@
   transition: 250ms ease-out;
   transition-property: transform;
   transform-origin: right;
-  text-shadow: 1px 1px 0 black;
 
   &.counting {
     transform: scale(1.1);

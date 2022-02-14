@@ -9,8 +9,10 @@ const cx = classNames.bind(styles);
 const Header: FC = () => {
   return (
     <header className={cx("main")}>
-      <Score />
-      <CurrentWord />
+      <div className={cx("content")}>
+        <Score />
+        <CurrentWord />
+      </div>
     </header>
   );
 };

@@ -25,7 +25,7 @@ const Score: FC = () => {
   return (
     <div className={cx("main")}>
       <animated.span className={cx("score", { counting })}>
-        {score.to((score) => score.toFixed(0).toLocaleString())}
+        {score.to((score) => Number(score.toFixed(0)).toLocaleString())}
       </animated.span>
     </div>
   );
