@@ -1,9 +1,6 @@
 import { animated, to, SpringValue } from "@react-spring/web";
 import { CSSProperties, FC } from "react";
-import classNames from "classnames/bind";
 import styles from "./Progress.module.scss";
-
-const cx = classNames.bind(styles);
 
 export type ProgressProps = {
   min: number;
@@ -17,7 +14,7 @@ const Progress: FC<ProgressProps> = ({
   min,
   max,
   size = 32,
-  strokeWidth = 2,
+  strokeWidth = 4,
   value,
 }) => {
   const halfSize = size / 2;
