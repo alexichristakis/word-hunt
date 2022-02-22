@@ -1,6 +1,7 @@
 .main {
   display: flex;
   justify-content: flex-end;
+  user-select: none;
 }
 
 .score {
@@ -17,6 +18,7 @@
   color: white;
   transition: transform 250ms ease-out;
   margin-right: 8px;
+  user-select: none;
 
   &.counting {
     transform: scale(1.05);

@@ -24,7 +24,7 @@ const CurrentWord: FC = () => {
 
   return (
     <animated.div className={cx("main")} style={{ transform: wordScale }}>
-      <span>{word}</span>
+      <span className={cx("word")}>{word}</span>
     </animated.div>
   );
 };
