@@ -31,7 +31,7 @@ const Score: FC = () => {
         <animated.span className={cx("number")}>
           {score.to((score) => Number(score.toFixed(0)).toLocaleString())}
         </animated.span>
-        <Progress min={0} max={maxScore ?? 0} value={score} />
+        <Progress min={0} max={maxScore ?? Infinity} value={score} />
       </span>
     </div>
   );

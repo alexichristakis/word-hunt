@@ -24,7 +24,6 @@ const GridProvider: FC = ({ children }) => {
     trie ? checkWord(word, trie) : false
   );
 
-  console.log({ allWords, maxScore });
   return (
     <GridContext.Provider
       value={{

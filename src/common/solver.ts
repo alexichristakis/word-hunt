@@ -23,25 +23,35 @@ const solver = (
 
     visited.add(index);
 
-    const letter = grid[index];
-    word += letter;
-
     if (root.valid) {
       foundWords.add(word);
     }
 
+    const letter = grid[index];
     const [row, col] = indexToCoordinates(index);
-    for (let i = row - 1; i <= row + 1 && i < GRID_SIZE; i++) {
-      for (let j = col - 1; j <= col + 1 && j < GRID_SIZE; j++) {
-        const index = coordinatesToIndex(i, j);
-        const letter = grid[index];
-        if (
-          i >= 0 &&
-          j >= 0 &&
-          !visited.has(coordinatesToIndex(i, j)) &&
-          root.children[letter]
-        ) {
-          visit(index, new Set(visited), word, root.children[letter]);
+    for (
+      let nextRow = row - 1;
+      nextRow <= row + 1 && nextRow < GRID_SIZE;
+      nextRow++
+    ) {
+      for (
+        let nextCol = col - 1;
+        nextCol <= col + 1 && nextCol < GRID_SIZE;
+        nextCol++
+      ) {
+        const nextIndex = coordinatesToIndex(nextRow, nextCol);
+        const nextLetter = grid[nextIndex];
+
+        const inBounds = nextRow >= 0 && nextCol >= 0;
+        const notInWord = visited.has(nextIndex) && root.children[nextLetter];
+
+        if (inBounds && !notInWord) {
+          visit(
+            nextIndex,
+            new Set(visited),
+            word + letter,
+            root.children[nextLetter]
+          );
         }
       }
     }
@@ -49,7 +59,7 @@ const solver = (
 
   grid.forEach((firstLetter, index) => {
     let root = trie[firstLetter];
-    visit(index, new Set(), "", root);
+    visit(index, new Set(), firstLetter, root);
   });
 
   console.log("solver:", performance.now() - startTime);
