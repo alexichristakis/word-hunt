@@ -9,14 +9,12 @@ import styles from "./Grid.module.scss";
 import Line from "./Line";
 import Tile from "./Tile";
 import useCurrentWord from "../../hooks/useCurrentWord";
-import useWords from "../../context/Words/useWords";
 import useFoundWords from "../../context/FoundWords/useFoundWords";
 
 const Grid: FC = () => {
-  const grid = useGrid();
+  const { grid } = useGrid();
   const gridRef = useRef<HTMLUListElement>(null);
-  const currentWord = useCurrentWord();
-  const words = useWords();
+  const { word: currentWord, valid } = useCurrentWord();
   const [word, setWord] = useWord();
   const [foundWords, setFoundWords] = useFoundWords();
   const [activeLetter, setActiveLetter] = useState<number | null>(null);
@@ -84,8 +82,6 @@ const Grid: FC = () => {
       }
     });
   });
-
-  const valid = !!words?.has(currentWord);
 
   const handleDragEnd = useCallbackRef(() => {
     setDragging(false);

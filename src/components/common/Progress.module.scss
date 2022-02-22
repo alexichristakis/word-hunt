@@ -1,0 +1,22 @@
+$fill: aliceblue;
+$strokeWidth: var(--strokeWidth, 2px);
+$track: rgba(0, 0, 0, 0.1);
+
+.main {
+}
+
+.track {
+  fill: transparent;
+  stroke: $track;
+  stroke-width: $strokeWidth;
+}
+
+.fill {
+  fill: transparent;
+  stroke: $fill;
+  stroke-width: $strokeWidth;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.2s;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}

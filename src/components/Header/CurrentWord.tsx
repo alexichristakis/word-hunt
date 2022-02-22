@@ -10,12 +10,9 @@ import { GRID_MAX_WIDTH } from "../../common/constants";
 const cx = classNames.bind(styles);
 
 const CurrentWord: FC = () => {
-  const currentWord = useCurrentWord();
+  const { word } = useCurrentWord();
 
-  const wordWidth = useMemo(
-    () => measureText(currentWord, 72) ?? 0,
-    [currentWord]
-  );
+  const wordWidth = useMemo(() => measureText(word, 72) ?? 0, [word]);
 
   const { width } = useWindowSize();
 
@@ -27,7 +24,7 @@ const CurrentWord: FC = () => {
 
   return (
     <animated.div className={cx("main")} style={{ transform: wordScale }}>
-      <span>{currentWord}</span>
+      <span>{word}</span>
     </animated.div>
   );
 };

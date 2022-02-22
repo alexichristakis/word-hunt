@@ -7,6 +7,8 @@
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   padding: 4px 12px;
+  display: flex;
+  align-items: center;
 }
 
 .number {
@@ -14,6 +16,7 @@
   display: block;
   color: white;
   transition: transform 250ms ease-out;
+  margin-right: 8px;
 
   &.counting {
     transform: scale(1.05);
