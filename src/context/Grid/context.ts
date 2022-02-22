@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { Letter } from "../../common/letters";
+import { Letter } from "common/letters";
 
 type Context = {
   grid: Letter[];

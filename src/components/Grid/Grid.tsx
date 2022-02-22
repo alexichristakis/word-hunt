@@ -1,15 +1,15 @@
 import { useSpring } from "@react-spring/web";
 import { FC, useRef, useState } from "react";
-import { indexToCoordinates } from "../../common/utils";
-import useGrid from "../../context/Grid/useGrid";
-import useTilePositions from "../../context/TilePositions/useTilePositions";
-import useWord from "../../context/Word/useWord";
-import useCallbackRef from "../../hooks/useCallbackRef";
+import { indexToCoordinates } from "common/utils";
+import useGrid from "context/Grid/useGrid";
+import useTilePositions from "context/TilePositions/useTilePositions";
+import useWord from "context/Word/useWord";
+import useCallbackRef from "hooks/useCallbackRef";
 import styles from "./Grid.module.scss";
 import Line from "./Line";
 import Tile from "./Tile";
-import useCurrentWord from "../../hooks/useCurrentWord";
-import useFoundWords from "../../context/FoundWords/useFoundWords";
+import useCurrentWord from "hooks/useCurrentWord";
+import useFoundWords from "context/FoundWords/useFoundWords";
 
 const Grid: FC = () => {
   const { grid } = useGrid();

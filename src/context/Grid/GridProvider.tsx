@@ -1,11 +1,11 @@
 import { FC, useMemo } from "react";
 import getGrid from "./getGrid";
 import { GridContext } from "./context";
-import useAsyncValue from "../../hooks/useAsyncValue";
-import getWords from "../../common/getWords";
-import { makeTrie, checkWord } from "../../common/Trie";
-import solver from "../../common/solver";
-import useCallbackRef from "../../hooks/useCallbackRef";
+import useAsyncValue from "hooks/useAsyncValue";
+import getWords from "common/getWords";
+import { makeTrie, checkWord } from "common/Trie";
+import solver from "common/solver";
+import useCallbackRef from "hooks/useCallbackRef";
 
 const GridProvider: FC = ({ children }) => {
   const grid = useMemo(() => getGrid(), []);

@@ -2,10 +2,10 @@ import { animated, to } from "@react-spring/web";
 import classNames from "classnames/bind";
 import styles from "./CurrentWord.module.scss";
 import { FC, useMemo } from "react";
-import measureText from "../../common/measureText";
-import useCurrentWord from "../../hooks/useCurrentWord";
-import useWindowSize from "../../hooks/useWindowSize";
-import { GRID_MAX_WIDTH } from "../../common/constants";
+import measureText from "common/measureText";
+import useCurrentWord from "hooks/useCurrentWord";
+import useWindowSize from "hooks/useWindowSize";
+import { GRID_MAX_WIDTH } from "common/constants";
 
 const cx = classNames.bind(styles);
 

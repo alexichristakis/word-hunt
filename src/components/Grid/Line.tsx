@@ -1,7 +1,7 @@
 import { animated, SpringValue, to } from "@react-spring/web";
 import { FC, useMemo } from "react";
-import { TilePositions } from "../../context/TilePositions/context";
-import useWindowSize from "../../hooks/useWindowSize";
+import { TilePositions } from "context/TilePositions/context";
+import useWindowSize from "hooks/useWindowSize";
 import styles from "./Line.module.scss";
 
 export type LineProps = {

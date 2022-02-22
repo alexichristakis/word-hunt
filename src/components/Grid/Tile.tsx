@@ -7,8 +7,8 @@ import {
 } from "@use-gesture/react";
 import classNames from "classnames/bind";
 import { FC, useRef } from "react";
-import { Letter } from "../../common/letters";
-import useTileSize from "../../context/TilePositions/useTileSize";
+import { Letter } from "common/letters";
+import useTileSize from "context/TilePositions/useTileSize";
 import styles from "./Tile.module.scss";
 
 const useGesture = createUseGesture([dragAction, hoverAction, moveAction]);

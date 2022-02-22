@@ -1,5 +1,5 @@
 import seedrandom from "seedrandom";
-import { Letter } from "../../common/letters";
+import { Letter } from "common/letters";
 
 export const LETTER_FREQUENCIES: Record<Letter, number> = {
   a: 9,
