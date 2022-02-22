@@ -70,10 +70,11 @@ const Grid: FC = () => {
       const cx = x.get();
       const cy = y.get();
 
-      const minX = cx - tileSize.get() / 2;
-      const maxX = cx + tileSize.get() / 2;
-      const minY = cy - tileSize.get() / 2;
-      const maxY = cy + tileSize.get() / 2;
+      const buffer = 12;
+      const minX = cx - tileSize.get() / 2 + buffer;
+      const maxX = cx + tileSize.get() / 2 - buffer;
+      const minY = cy - tileSize.get() / 2 + buffer;
+      const maxY = cy + tileSize.get() / 2 - buffer;
 
       if (px >= minX && px <= maxX && py >= minY && py <= maxY) {
         const nextWord = new Set(word);
