@@ -31,26 +31,25 @@ const DICE_5x5: [Letter, Letter, Letter, Letter, Letter, Letter][] = [
 ];
 
 const random = (seed: number | string, max = 1) => {
-  const date = new Date().toISOString().split("T")[0];
-  const rand = seedrandom(`${date}--${seed}`)();
+  const rand = seedrandom(`${seed}`)();
   return Math.floor(rand * max);
 };
 
-const getGrid = (): Letter[] => {
+const getGrid = (seed: string): Letter[] => {
   const grid = new Array(GRID_SIZE * GRID_SIZE).fill(null);
 
   const dice = DICE_5x5.concat();
 
   for (const index of grid.keys()) {
     // choose a die
-    const chosenDieIndex = random(`${index}-die`, dice.length);
+    const chosenDieIndex = random(`${seed}-${index}-die`, dice.length);
     const die = dice[chosenDieIndex];
 
     // remove it
     dice.splice(chosenDieIndex, 1);
 
     // choose a letter
-    const chosenLetterIndex = random(`${index}-letter`, die.length);
+    const chosenLetterIndex = random(`${seed}-${index}-letter`, die.length);
     grid[index] = die[chosenLetterIndex];
   }
 

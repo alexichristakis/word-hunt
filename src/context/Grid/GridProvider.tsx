@@ -6,9 +6,10 @@ import getWords from "common/getWords";
 import { makeTrie, checkWord } from "common/Trie";
 import solver from "common/solver";
 import useCallbackRef from "hooks/useCallbackRef";
+import getGridSeed from "common/getGridSeed";
 
 const GridProvider: FC<PropsWithChildren> = ({ children }) => {
-  const grid = useMemo(() => getGrid(), []);
+  const grid = useMemo(() => getGrid(getGridSeed()), []);
   const words = useAsyncValue(() => getWords());
   const trie = useMemo(() => (words ? makeTrie(words) : null), [words]);
 
