@@ -12527,7 +12527,6 @@ __metadata:
     sass: ^1.74.1
     seedrandom: ^3.0.5
     typescript: ^5.4.4
-    wordlist-english: ^1.2.1
   languageName: unknown
   linkType: soft
 
@@ -12535,13 +12534,6 @@ __metadata:
   version: 1.2.3
   resolution: "word-wrap@npm:1.2.3"
   checksum: 30b48f91fcf12106ed3186ae4fa86a6a1842416df425be7b60485de14bec665a54a68e4b5156647dec3a70f25e84d270ca8bc8cd23182ed095f5c7206a938c1f
-  languageName: node
-  linkType: hard
-
-"wordlist-english@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "wordlist-english@npm:1.2.1"
-  checksum: d2ff45f3fcf7f9c4d1d1d403436a8986b0cf9ff8d32c90046092c21bc0444f1bb68b7ecd4bb63cb0da758cd7704c0d2b52874cd3aeb696397d682c76fec570c1
   languageName: node
   linkType: hard
 
