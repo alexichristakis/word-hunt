@@ -6,7 +6,7 @@ $found: rgb(255, 255, 167);
 
 .main {
   background-color: $shadow;
-  font-size: 20px;
+  font-size: 30px;
   display: flex;
   touch-action: none;
   user-select: none;
@@ -67,4 +67,5 @@ $found: rgb(255, 255, 167);
 .letter {
   display: block;
   user-select: none;
+  text-transform: uppercase;
 }

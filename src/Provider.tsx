@@ -13,4 +13,5 @@ const Provider: FC<PropsWithChildren> = ({ children }) => (
     </WordProvider>
   </TilePositionsProvider>
 );
+
 export default Provider;
