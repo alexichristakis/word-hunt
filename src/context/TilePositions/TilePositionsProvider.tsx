@@ -1,12 +1,12 @@
 import { useSpring, useSprings } from "@react-spring/web";
-import { FC, useMemo } from "react";
+import { FC, PropsWithChildren, useMemo } from "react";
 import { GRID_GAP, GRID_MAX_WIDTH, GRID_SIZE } from "common/constants";
 import { indexToCoordinates } from "common/utils";
 import useCallbackRef from "hooks/useCallbackRef";
 import useWindowSize from "hooks/useWindowSize";
 import { TilePositionsContext, TilePositionsContextShape } from "./context";
 
-const TilePositionsProvider: FC = ({ children }) => {
+const TilePositionsProvider: FC<PropsWithChildren> = ({ children }) => {
   const [{ tileSize, gridSize }] = useSpring<TilePositionsContextShape>(() => ({
     tileSize: 0,
     gridSize: 0,
