@@ -1,11 +1,15 @@
 const run = async () => {
   const fs = await import("fs");
-  const { default: wordlist } = await import("wordlist-english");
-  const allWords = wordlist["english"];
+  const { words } = require("./src/assets/dictionary.json");
+  const { default: pako } = await import("pako");
+
+  // filter for words with at least 3 letters and compress
+  const filtered = words.filter((word) => word.length > 2);
+  const compressed = pako.deflate(JSON.stringify(filtered));
 
   fs.writeFileSync(
     "./src/assets/words.json",
-    JSON.stringify({ words: allWords.filter((word) => word.length > 2) })
+    `{"data": "${btoa(compressed)}"}`
   );
 };
 

@@ -1,7 +1,7 @@
-import { FC, useState } from "react";
+import { FC, PropsWithChildren, useState } from "react";
 import { FoundWordsContext } from "./context";
 
-const FoundWordsProvider: FC = ({ children }) => {
+const FoundWordsProvider: FC<PropsWithChildren> = ({ children }) => {
   const value = useState<Set<string>>(new Set());
   return (
     <FoundWordsContext.Provider value={value}>

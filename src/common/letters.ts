@@ -25,6 +25,7 @@ export const LETTTERS = [
   "x",
   "y",
   "z",
+  "qu",
 ] as const;
 
-export type Letter = typeof LETTTERS[number];
+export type Letter = (typeof LETTTERS)[number];

@@ -1,5 +1,5 @@
 import { useSpring } from "@react-spring/web";
-import { FC, useRef, useState } from "react";
+import { CSSProperties, FC, useRef, useState } from "react";
 import { indexToCoordinates } from "common/utils";
 import useGrid from "context/Grid/useGrid";
 import useTilePositions from "context/TilePositions/useTilePositions";
@@ -10,6 +10,7 @@ import Line from "./Line";
 import Tile from "./Tile";
 import useCurrentWord from "hooks/useCurrentWord";
 import useFoundWords from "context/FoundWords/useFoundWords";
+import { GRID_SIZE } from "common/constants";
 
 const Grid: FC = () => {
   const { grid } = useGrid();
@@ -109,7 +110,11 @@ const Grid: FC = () => {
         dragY={dragY}
         word={word}
       />
-      <ul ref={gridRef} className={styles.grid}>
+      <ul
+        ref={gridRef}
+        className={styles.grid}
+        style={{ "--grid-columns": GRID_SIZE } as CSSProperties}
+      >
         {grid.map((letter, index) => (
           <Tile
             key={index}

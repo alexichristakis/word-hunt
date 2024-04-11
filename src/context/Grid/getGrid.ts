@@ -1,52 +1,60 @@
 import seedrandom from "seedrandom";
 import { Letter } from "common/letters";
+import { GRID_SIZE } from "common/constants";
 
-export const LETTER_FREQUENCIES: Record<Letter, number> = {
-  a: 9,
-  b: 2,
-  c: 2,
-  d: 4,
-  e: 12,
-  f: 2,
-  g: 3,
-  h: 2,
-  i: 9,
-  j: 1,
-  k: 1,
-  l: 4,
-  m: 2,
-  n: 6,
-  o: 8,
-  p: 2,
-  q: 1,
-  r: 6,
-  s: 4,
-  t: 6,
-  u: 4,
-  v: 2,
-  w: 2,
-  x: 1,
-  y: 2,
-  z: 1,
+const DICE_5x5: [Letter, Letter, Letter, Letter, Letter, Letter][] = [
+  ["a", "a", "a", "f", "r", "s"],
+  ["a", "a", "e", "e", "e", "e"],
+  ["a", "a", "f", "i", "r", "s"],
+  ["a", "d", "e", "n", "n", "n"],
+  ["a", "e", "e", "e", "e", "m"],
+  ["a", "e", "e", "g", "m", "u"],
+  ["a", "e", "g", "m", "n", "n"],
+  ["a", "f", "i", "r", "s", "y"],
+  ["b", "j", "k", "qu", "x", "z"],
+  ["c", "c", "e", "n", "s", "t"],
+  ["c", "e", "i", "i", "l", "t"],
+  ["c", "e", "i", "l", "p", "t"],
+  ["c", "e", "i", "p", "s", "t"],
+  ["d", "d", "h", "n", "o", "t"],
+  ["d", "h", "h", "l", "o", "r"],
+  ["d", "h", "l", "n", "o", "r"],
+  ["d", "h", "l", "n", "o", "r"],
+  ["e", "i", "i", "i", "t", "t"],
+  ["e", "m", "o", "t", "t", "t"],
+  ["e", "n", "s", "s", "s", "u"],
+  ["f", "i", "p", "r", "s", "y"],
+  ["g", "o", "r", "r", "v", "w"],
+  ["i", "p", "r", "r", "r", "y"],
+  ["n", "o", "o", "t", "u", "w"],
+  ["o", "o", "o", "t", "t", "u"],
+];
+
+const random = (seed: number | string, max = 1) => {
+  const date = new Date().toISOString().split("T")[0];
+  const rand = seedrandom(`${date}--${seed}`)();
+  return Math.floor(rand * max);
 };
 
-const LETTERS = Object.entries(LETTER_FREQUENCIES).flatMap(
-  ([letter, frequency]) => new Array<Letter>(frequency).fill(letter as Letter)
-);
-
-const random = (i: number) => {
-  const date = new Date().toDateString();
-  return seedrandom(`${date}--${i}`)();
-};
-
-const pickLetter = (i: number) => {
-  const index = Math.floor(random(i) * LETTERS.length);
-  return LETTERS[index];
-};
-
-/**  */
 const getGrid = (): Letter[] => {
-  return new Array(4 * 4).fill(null).map((_, index) => pickLetter(index));
+  const grid = new Array(GRID_SIZE * GRID_SIZE).fill(null);
+
+  const dice = DICE_5x5.concat();
+
+  for (const index of grid.keys()) {
+    // choose a die
+    const chosenDieIndex = random(`${index}-die`, dice.length);
+    const die = dice[chosenDieIndex];
+
+    // remove it
+    dice.splice(chosenDieIndex, 1);
+
+    // choose a letter
+    const chosenLetterIndex = random(`${index}-letter`, die.length);
+    grid[index] = die[chosenLetterIndex];
+  }
+
+  return grid;
 };
 
 export default getGrid;

@@ -22,12 +22,13 @@ const solver = (
     }
 
     visited.add(index);
+    const letter = grid[index];
+    word = word + letter;
 
     if (root.valid) {
       foundWords.add(word);
     }
 
-    const letter = grid[index];
     const [row, col] = indexToCoordinates(index);
     for (
       let nextRow = row - 1;
@@ -46,20 +47,15 @@ const solver = (
         const notInWord = visited.has(nextIndex) && root.children[nextLetter];
 
         if (inBounds && !notInWord) {
-          visit(
-            nextIndex,
-            new Set(visited),
-            word + letter,
-            root.children[nextLetter]
-          );
+          visit(nextIndex, new Set(visited), word, root.children[nextLetter]);
         }
       }
     }
   };
 
   grid.forEach((firstLetter, index) => {
-    let root = trie[firstLetter];
-    visit(index, new Set(), firstLetter, root);
+    const root = trie[firstLetter];
+    visit(index, new Set(), "", root);
   });
 
   console.log("solver:", performance.now() - startTime);

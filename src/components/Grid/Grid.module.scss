@@ -12,6 +12,6 @@
   flex: 1 1 auto;
   display: grid;
   max-width: 600px;
-  gap: 20px;
-  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
 }

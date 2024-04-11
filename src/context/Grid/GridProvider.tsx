@@ -1,4 +1,4 @@
-import { FC, useMemo } from "react";
+import { FC, PropsWithChildren, useMemo } from "react";
 import getGrid from "./getGrid";
 import { GridContext } from "./context";
 import useAsyncValue from "hooks/useAsyncValue";
@@ -7,7 +7,7 @@ import { makeTrie, checkWord } from "common/Trie";
 import solver from "common/solver";
 import useCallbackRef from "hooks/useCallbackRef";
 
-const GridProvider: FC = ({ children }) => {
+const GridProvider: FC<PropsWithChildren> = ({ children }) => {
   const grid = useMemo(() => getGrid(), []);
   const words = useAsyncValue(() => getWords());
   const trie = useMemo(() => (words ? makeTrie(words) : null), [words]);

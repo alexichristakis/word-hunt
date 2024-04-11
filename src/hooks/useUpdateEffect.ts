@@ -9,7 +9,6 @@ const useUpdateEffect = (effect: EffectCallback, deps: DependencyList) => {
     }
 
     mounted.current = true;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 };
 
