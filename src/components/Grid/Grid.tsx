@@ -14,7 +14,7 @@ import { GRID_SIZE } from "common/constants";
 
 const Grid: FC = () => {
   const { grid } = useGrid();
-  const gridRef = useRef<HTMLUListElement>(null);
+  const gridRef = useRef<HTMLOListElement>(null);
   const { word: currentWord, valid } = useCurrentWord();
   const [word, setWord] = useWord();
   const [foundWords, setFoundWords] = useFoundWords();
@@ -71,7 +71,7 @@ const Grid: FC = () => {
       const cx = x.get();
       const cy = y.get();
 
-      const buffer = 12;
+      const buffer = 8;
       const minX = cx - tileSize.get() / 2 + buffer;
       const maxX = cx + tileSize.get() / 2 - buffer;
       const minY = cy - tileSize.get() / 2 + buffer;
@@ -110,8 +110,8 @@ const Grid: FC = () => {
         dragY={dragY}
         word={word}
       />
-      <ul
-        ref={gridRef}
+      <ol
+        ref={gridRef} 
         className={styles.grid}
         style={{ "--grid-columns": GRID_SIZE } as CSSProperties}
       >
@@ -125,7 +125,7 @@ const Grid: FC = () => {
             onDragEnd={handleDragEnd}
           />
         ))}
-      </ul>
+      </ol>
     </main>
   );
 };

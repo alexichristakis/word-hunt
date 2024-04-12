@@ -3,3 +3,12 @@
   position: absolute;
   z-index: 1;
 }
+
+.segments {
+  position: absolute;
+}
+
+.segment {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+}

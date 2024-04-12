@@ -24,7 +24,7 @@ const useLocalStorageState = <T>(
 
   const [state, setState] = useState(getDefaultValue);
 
-  useWindowEventListener("beforeunload", () => {
+  useWindowEventListener("unload", () => {
     localStorage.setItem(key, stringify(state));
   });
 
