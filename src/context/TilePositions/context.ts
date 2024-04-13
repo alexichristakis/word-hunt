@@ -15,6 +15,7 @@ export type TilePositionsContextShape = {
 
 export const TilePositionsContext = createContext<TilePositionsContextShape>({
   gridSize: new SpringValue(0),
+  gridRotation: new SpringValue(0),
   tileSize: new SpringValue(0),
   tilePositions: [],
 });
