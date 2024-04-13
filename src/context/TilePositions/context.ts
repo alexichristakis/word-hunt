@@ -8,6 +8,7 @@ export type TilePositions = {
 
 export type TilePositionsContextShape = {
   gridSize: SpringValue<number>;
+  gridRotation: SpringValue<number>;
   tileSize: SpringValue<number>;
   tilePositions: TilePositions;
 };

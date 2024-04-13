@@ -11,12 +11,7 @@ $found: rgb(255, 255, 167);
   touch-action: none;
   user-select: none;
   z-index: 0;
-
-  &.inWord,
-  &.validWord,
-  &.foundWord {
-    z-index: 2;
-  }
+  will-change: transform;
 
   &::before {
     content: "";

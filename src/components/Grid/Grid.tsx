@@ -1,16 +1,16 @@
-import { useSpring } from "@react-spring/web";
-import { CSSProperties, FC, useRef, useState } from "react";
+import { animated, to, useSpring } from "@react-spring/web";
+import { GRID_SIZE } from "common/constants";
 import { indexToCoordinates } from "common/utils";
+import useFoundWords from "context/FoundWords/useFoundWords";
 import useGrid from "context/Grid/useGrid";
 import useTilePositions from "context/TilePositions/useTilePositions";
 import useWord from "context/Word/useWord";
 import useCallbackRef from "hooks/useCallbackRef";
+import useCurrentWord from "hooks/useCurrentWord";
+import { CSSProperties, FC, useRef, useState } from "react";
 import styles from "./Grid.module.scss";
 import Line from "./Line";
 import Tile from "./Tile";
-import useCurrentWord from "hooks/useCurrentWord";
-import useFoundWords from "context/FoundWords/useFoundWords";
-import { GRID_SIZE } from "common/constants";
 
 const Grid: FC = () => {
   const { grid } = useGrid();
@@ -22,7 +22,8 @@ const Grid: FC = () => {
   const [dragging, setDragging] = useState(false);
   const gridOffset = useRef({ x: 0, y: 0 });
   const [{ dragX, dragY }] = useSpring(() => ({ dragX: 0, dragY: 0 }));
-  const { gridSize, tileSize, tilePositions } = useTilePositions();
+  const { gridSize, tileSize, gridRotation, tilePositions } =
+    useTilePositions();
 
   const handleDragStart = useCallbackRef((index: number) => {
     if (dragging) {
@@ -50,15 +51,17 @@ const Grid: FC = () => {
     dragX.set(px);
     dragY.set(py);
 
-    const [activeLetterRow, activeLetterColumn] =
-      indexToCoordinates(activeLetter);
+    const [activeLetterRow, activeLetterColumn] = indexToCoordinates(
+      activeLetter,
+      gridRotation.get()
+    );
 
     tilePositions.forEach(({ x, y }, tileIndex) => {
       if (word.has(tileIndex)) {
         return;
       }
 
-      const [row, column] = indexToCoordinates(tileIndex);
+      const [row, column] = indexToCoordinates(tileIndex, gridRotation.get());
 
       // check if valid tile
       if (
@@ -102,7 +105,10 @@ const Grid: FC = () => {
     : "inWord";
 
   return (
-    <main className={styles.main}>
+    <main
+      className={styles.main}
+      style={{ "--grid-columns": GRID_SIZE } as CSSProperties}
+    >
       <Line
         gridSize={gridSize}
         tilePositions={tilePositions}
@@ -110,10 +116,15 @@ const Grid: FC = () => {
         dragY={dragY}
         word={word}
       />
-      <ol
-        ref={gridRef} 
+      <animated.ol
+        ref={gridRef}
         className={styles.grid}
-        style={{ "--grid-columns": GRID_SIZE } as CSSProperties}
+        style={{
+          transform: to(
+            [gridRotation],
+            (rotation) => `rotateZ(${rotation}rad)`
+          ),
+        }}
       >
         {grid.map((letter, index) => (
           <Tile
@@ -123,9 +134,10 @@ const Grid: FC = () => {
             onDragStart={() => handleDragStart(index)}
             onDrag={handleDrag}
             onDragEnd={handleDragEnd}
+            gridRotation={gridRotation}
           />
         ))}
-      </ol>
+      </animated.ol>
     </main>
   );
 };

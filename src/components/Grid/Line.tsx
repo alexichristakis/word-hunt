@@ -3,6 +3,9 @@ import { FC, useMemo } from "react";
 import { TilePositions } from "context/TilePositions/context";
 import useWindowSize from "hooks/useWindowSize";
 import styles from "./Line.module.scss";
+import classNames from "classnames/bind";
+
+const cx = classNames.bind(styles);
 
 export type LineProps = {
   word: Set<number>;
@@ -20,11 +23,12 @@ type Point = {
 type EdgeProps = {
   p1: Point;
   p2: Point;
+  isActive: boolean;
 };
 
 const SEGMENT_STROKE_WIDTH = 12;
 
-const Segment: FC<EdgeProps> = ({ p1, p2 }) => {
+const Segment: FC<EdgeProps> = ({ isActive, p1, p2 }) => {
   const width = to([p1.x, p1.y, p2.x, p2.y], (x1, y1, x2, y2) =>
     Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
   );
@@ -42,14 +46,12 @@ const Segment: FC<EdgeProps> = ({ p1, p2 }) => {
     <animated.div
       className={styles.segment}
       style={{
-        position: "absolute",
         left: p1.x,
         top: p1.y,
         height: SEGMENT_STROKE_WIDTH,
         borderRadius: SEGMENT_STROKE_WIDTH / 2,
         width,
         transform,
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
       }}
     />
   );
@@ -88,9 +90,17 @@ const Line: FC<LineProps> = ({
 
   return (
     <animated.div className={styles.main} style={{ width, height }}>
-      <animated.div className={styles.segments} style={{ top, left, width: gridSize, height: gridSize }}>
-        {segments.map(([p1, p2], key) => (
-          <Segment key={`${key}/${segments.length}`} p1={p1} p2={p2} />
+      <animated.div
+        className={styles.segments}
+        style={{ top, left, width: gridSize, height: gridSize }}
+      >
+        {segments.map(([p1, p2], index) => (
+          <Segment
+            isActive={index === segments.length - 1}
+            key={`${index}/${segments.length}`}
+            p1={p1}
+            p2={p2}
+          />
         ))}
       </animated.div>
     </animated.div>

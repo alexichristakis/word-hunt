@@ -5,10 +5,10 @@
   justify-content: center;
   align-items: center;
   margin: 16px;
-  position: relative;
 }
 
 .grid {
+  z-index: 1;
   flex: 1 1 auto;
   display: grid;
   max-width: 600px;
