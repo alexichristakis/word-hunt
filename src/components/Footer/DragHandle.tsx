@@ -59,6 +59,7 @@ const DragHandle: FC<DragHandleProps> = ({ gridSize, gridRotation }) => {
   return (
     <animated.div
       className={styles.main}
+      role="drag"
       style={{
         transform: to([xOffset], (xOffset) => ` translateX(${xOffset}px)`),
       }}

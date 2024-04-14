@@ -1,8 +1,7 @@
-import { SpringValue } from "@react-spring/web";
 import { GRID_SIZE } from "./constants";
 
 export const indexToCoordinates = (index: number, gridRotation: number = 0) => {
-  const rotation = (((gridRotation / (Math.PI / 2)) % 4) + 4) % 4;
+  const rotation = ((Math.round(gridRotation / (Math.PI / 2)) % 4) + 4) % 4;
   const row = Math.floor(index / GRID_SIZE);
   const column = index % GRID_SIZE;
 
