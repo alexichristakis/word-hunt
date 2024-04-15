@@ -21,8 +21,6 @@ const GridProvider: FC<PropsWithChildren> = ({ children }) => {
     return solver(grid, trie);
   }, [grid, trie]);
 
-  console.log(allWords);
-
   const handleCheckWord = useCallbackRef((word: string) =>
     trie ? checkWord(word, trie) : false
   );

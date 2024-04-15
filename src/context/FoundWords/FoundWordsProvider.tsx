@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useState } from "react";
+import { FC, PropsWithChildren } from "react";
 import { FoundWordsContext } from "./context";
 import useLocalStorageState from "hooks/useLocalStorageState";
 import getGridSeed from "common/getGridSeed";
