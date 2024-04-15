@@ -1,5 +1,5 @@
 import { animated, to, useSpring } from "@react-spring/web";
-import { GRID_SIZE } from "common/constants";
+import { GRID_MARGIN, GRID_SIZE } from "common/constants";
 import { indexToCoordinates } from "common/utils";
 import useFoundWords from "context/FoundWords/useFoundWords";
 import useGrid from "context/Grid/useGrid";
@@ -22,7 +22,7 @@ const Grid: FC = () => {
   const [dragging, setDragging] = useState(false);
   const gridOffset = useRef({ x: 0, y: 0 });
   const [{ dragX, dragY }] = useSpring(() => ({ dragX: 0, dragY: 0 }));
-  const { gridSize, tileSize, gridRotation, tilePositions } =
+  const { gridSize, tileSize, gridRotation, gridGap, tilePositions } =
     useTilePositions();
 
   const handleDragStart = useCallbackRef((index: number) => {
@@ -74,7 +74,7 @@ const Grid: FC = () => {
       const cx = x.get();
       const cy = y.get();
 
-      const buffer = 4;
+      const buffer = 8;
       const minX = cx - tileSize.get() / 2 + buffer;
       const maxX = cx + tileSize.get() / 2 - buffer;
       const minY = cy - tileSize.get() / 2 + buffer;
@@ -107,7 +107,12 @@ const Grid: FC = () => {
   return (
     <main
       className={styles.main}
-      style={{ "--grid-columns": GRID_SIZE } as CSSProperties}
+      style={
+        {
+          "--grid-columns": GRID_SIZE,
+          "--grid-margin": `${GRID_MARGIN}px`,
+        } as CSSProperties
+      }
     >
       <Line
         gridSize={gridSize}
@@ -124,6 +129,9 @@ const Grid: FC = () => {
             [gridRotation],
             (rotation) => `rotateZ(${rotation}rad)`
           ),
+          width: gridSize,
+          maxWidth: gridSize,
+          gap: gridGap,
         }}
       >
         {grid.map((letter, index) => (

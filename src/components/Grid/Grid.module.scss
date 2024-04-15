@@ -4,18 +4,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 16px;
+  margin: var(--grid-margin);
 }
 
 .grid {
   z-index: 1;
   flex: 1 1 auto;
   display: grid;
-  max-width: 600px;
-  gap: 8px;
   grid-template-columns: repeat(var(--grid-columns), 1fr);
-
-  @media (min-width: 650px) {
-    gap: 16px;
-  }
 }
