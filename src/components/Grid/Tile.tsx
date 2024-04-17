@@ -64,15 +64,16 @@ const Tile: FC<TileProps> = ({
     (rotation) => `rotateZ(${-rotation}rad)`
   );
 
+  const dimensions = { width: tileSize, height: tileSize };
   return (
     <animated.li
       ref={ref}
       className={cx("main", status)}
-      style={{ transform: rotationTransform }}
+      style={{ transform: rotationTransform, ...dimensions }}
     >
-      <span
+      <animated.span
         className={cx("face", status)}
-        style={{ transitionDelay: `${transitionDelay}ms` }}
+        style={{ transitionDelay: `${transitionDelay}ms`, ...dimensions }}
       >
         <animated.span
           className={cx("letter")}
@@ -80,7 +81,7 @@ const Tile: FC<TileProps> = ({
         >
           {letter}
         </animated.span>
-      </span>
+      </animated.span>
     </animated.li>
   );
 };
