@@ -10,6 +10,8 @@ import mix from "common/mix";
 
 const cx = classNames.bind(styles);
 
+const DOT_SIZE = 16;
+
 type DragHandleProps = {
   gridSize: SpringValue<number>;
   gridRotation: SpringValue<number>;
@@ -19,7 +21,7 @@ const DragHandle: FC<DragHandleProps> = ({ gridSize, gridRotation }) => {
   const ref = useRef<HTMLDivElement>(null);
   const xOffset = useSpringValue(0);
   const iconOpacity = useSpringValue(0);
-  const initialRotation = useRef(gridRotation.get());
+  const initialRotation = useRef(0);
   const [isDragging, setIsDragging] = useState(false);
 
   useGesture(
@@ -27,7 +29,6 @@ const DragHandle: FC<DragHandleProps> = ({ gridSize, gridRotation }) => {
       onDragStart: () => {
         setIsDragging(true);
         iconOpacity.start(0.5);
-        initialRotation.current = gridRotation.get();
       },
       onDrag: ({ delta }) => {
         const [deltaX] = delta;
@@ -46,24 +47,25 @@ const DragHandle: FC<DragHandleProps> = ({ gridSize, gridRotation }) => {
           gridSize.get() / 2,
         ]);
 
+        let nextRotation = initialRotation.current;
         if (point > 0) {
-          gridRotation.start(initialRotation.current - Math.PI / 2);
+          nextRotation = initialRotation.current - Math.PI / 2;
         } else if (point < 0) {
-          gridRotation.start(initialRotation.current + Math.PI / 2);
-        } else {
-          gridRotation.start(initialRotation.current);
+          nextRotation = initialRotation.current + Math.PI / 2;
         }
 
         xOffset.start(0);
         iconOpacity.start(0);
+        gridRotation.start(nextRotation);
+        initialRotation.current = nextRotation;
         setIsDragging(false);
       },
     },
     { target: ref, eventOptions: { passive: true } }
   );
 
-  const minOffset = to([gridSize], (gridSize) => -gridSize / 2 + 8);
-  const maxOffset = to([gridSize], (gridSize) => gridSize / 2 - 8);
+  const minOffset = to([gridSize], (gridSize) => -gridSize / 2 + DOT_SIZE / 2);
+  const maxOffset = to([gridSize], (gridSize) => gridSize / 2 - DOT_SIZE / 2);
 
   const clampedOffset = to(
     [xOffset, minOffset, maxOffset],
@@ -96,7 +98,11 @@ const DragHandle: FC<DragHandleProps> = ({ gridSize, gridRotation }) => {
         <IconRotate direction="left" />
       </animated.div>
       <animated.div role="drag" style={{ transform }}>
-        <animated.div ref={ref} className={cx("dot", { isDragging })} />
+        <animated.div
+          ref={ref}
+          className={cx("dot", { isDragging })}
+          style={{ width: DOT_SIZE, height: DOT_SIZE }}
+        />
       </animated.div>
       <animated.div
         className={cx("rotateIcon", { isDragging })}
