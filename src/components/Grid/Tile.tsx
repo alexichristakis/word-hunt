@@ -6,7 +6,7 @@ import {
   moveAction,
 } from "@use-gesture/react";
 import classNames from "classnames/bind";
-import { FC, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { Letter } from "common/letters";
 import useTileSize from "context/TilePositions/useTileSize";
 import styles from "./Tile.module.scss";
@@ -21,6 +21,7 @@ type TileProps = {
   status: TileStatus;
   letter: Letter;
   gridRotation: SpringValue<number>;
+  indexInWord: number | null;
   onDragStart?: (xy: [number, number]) => void;
   onDrag?: (xy: [number, number]) => void;
   onDragEnd?: () => void;
@@ -30,16 +31,23 @@ const Tile: FC<TileProps> = ({
   status = "none",
   letter,
   gridRotation,
+  indexInWord,
   onDrag,
   onDragStart,
   onDragEnd,
 }) => {
   const ref = useRef<HTMLLIElement>(null);
   const tileSize = useTileSize();
+  const [transitionDelay, setTransitionDelay] = useState(0);
+
+  useEffect(() => {
+    // we only want the delay to apply to the letter release
+    requestAnimationFrame(() => setTransitionDelay((indexInWord ?? 0) * 25));
+  }, [indexInWord]);
 
   useGesture(
     {
-      onDragStart: ({ xy,  }) => onDragStart?.(xy),
+      onDragStart: ({ xy }) => onDragStart?.(xy),
       onDrag: ({ xy }) => onDrag?.(xy),
       onDragEnd,
     },
@@ -62,7 +70,10 @@ const Tile: FC<TileProps> = ({
       className={cx("main", status)}
       style={{ transform: rotationTransform }}
     >
-      <span className={cx("face", status)}>
+      <span
+        className={cx("face", status)}
+        style={{ transitionDelay: `${transitionDelay}ms` }}
+      >
         <animated.span
           className={cx("letter")}
           style={{ transform: scaleTransform }}

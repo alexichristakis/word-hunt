@@ -147,17 +147,21 @@ const Grid: FC = () => {
           gap: gridGap,
         }}
       >
-        {grid.map((letter, index) => (
-          <Tile
-            key={index}
-            letter={letter}
-            status={word.has(index) ? wordStatus : "none"}
-            onDragStart={(xy) => handleDragStart(index, xy)}
-            onDrag={handleDrag}
-            onDragEnd={handleDragEnd}
-            gridRotation={gridRotation}
-          />
-        ))}
+        {grid.map((letter, index) => {
+          const indexInWord = Array.from(word).reverse().indexOf(index);
+          return (
+            <Tile
+              key={index}
+              letter={letter}
+              status={word.has(index) ? wordStatus : "none"}
+              indexInWord={indexInWord === -1 ? null : indexInWord}
+              onDragStart={(xy) => handleDragStart(index, xy)}
+              onDrag={handleDrag}
+              onDragEnd={handleDragEnd}
+              gridRotation={gridRotation}
+            />
+          );
+        })}
       </animated.ol>
     </main>
   );

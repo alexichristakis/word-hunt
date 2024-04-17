@@ -59,7 +59,7 @@ const DragHandle: FC<DragHandleProps> = ({ gridSize, gridRotation }) => {
         setIsDragging(false);
       },
     },
-    { target: ref }
+    { target: ref, eventOptions: { passive: true } }
   );
 
   const minOffset = to([gridSize], (gridSize) => -gridSize / 2 + 8);
@@ -70,9 +70,10 @@ const DragHandle: FC<DragHandleProps> = ({ gridSize, gridRotation }) => {
     (xOffset, min, max) => clamp(xOffset, min, max)
   );
 
-  const transform = to([clampedOffset, gridSize], (offset) => {
-    return `translateX(${offset}px)`;
-  });
+  const transform = to(
+    [clampedOffset, gridSize],
+    (offset) => `translateX(${offset}px)`
+  );
 
   const rightIconOpacity = to(
     [iconOpacity, clampedOffset, maxOffset],
