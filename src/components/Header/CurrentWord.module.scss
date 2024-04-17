@@ -5,6 +5,7 @@
   transform-origin: left;
   margin-top: 20px;
   white-space: nowrap;
+  will-change: transform;
 
   // force the height of the word
   &::after {

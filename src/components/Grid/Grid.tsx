@@ -74,7 +74,7 @@ const Grid: FC = () => {
       const cx = x.get();
       const cy = y.get();
 
-      const buffer = 8;
+      const buffer = 5;
       const minX = cx - tileSize.get() / 2 + buffer;
       const maxX = cx + tileSize.get() / 2 - buffer;
       const minY = cy - tileSize.get() / 2 + buffer;
@@ -131,6 +131,7 @@ const Grid: FC = () => {
           ),
           width: gridSize,
           maxWidth: gridSize,
+          // columnGap: to([gridGap], (gridGap) => gridGap + 4),
           gap: gridGap,
         }}
       >
