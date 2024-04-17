@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useMemo } from "react";
+import { FC, PropsWithChildren, useMemo, useState } from "react";
 import getGrid from "./getGrid";
 import { GridContext } from "./context";
 import useAsyncValue from "hooks/useAsyncValue";
@@ -7,9 +7,16 @@ import { makeTrie, checkWord } from "common/Trie";
 import solver from "common/solver";
 import useCallbackRef from "hooks/useCallbackRef";
 import getGridSeed from "common/getGridSeed";
+import useDocumentEventListener from "hooks/useDocumentEventListener";
 
 const GridProvider: FC<PropsWithChildren> = ({ children }) => {
-  const grid = useMemo(() => getGrid(getGridSeed()), []);
+  const [gridSeed, setGridSeed] = useState(() => getGridSeed());
+
+  useDocumentEventListener("visibilitychange", () => {
+    setGridSeed(getGridSeed());
+  });
+
+  const grid = useMemo(() => getGrid(gridSeed), [gridSeed]);
   const words = useAsyncValue(() => getWords());
   const trie = useMemo(() => (words ? makeTrie(words) : null), [words]);
 
