@@ -58,7 +58,7 @@ const solver = (
     visit(index, new Set(), "", root);
   });
 
-  console.log("solver:", performance.now() - startTime);
+  console.log(`solver: ${(performance.now() - startTime).toFixed(2)}ms`);
   return [foundWords, scoreWords(foundWords)];
 };
 

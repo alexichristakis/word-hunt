@@ -54,8 +54,9 @@ const CurrentWord: FC = () => {
       shake: justCommittedInvalidWord ? 1 : 0,
       config: {
         mass: 1,
-        tension: 200,
+        tension: 150,
         friction: 15,
+        clamp: true,
       },
       onRest: () => setJustCommittedInvalidWord(false),
     },
