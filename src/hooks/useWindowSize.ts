@@ -1,7 +1,7 @@
 import { useSpring } from "@react-spring/web";
 import useCallbackRef from "./useCallbackRef";
-import useMountEffect from "./useMountEffect";
 import useWindowEventListener from "./useWindowEventListener";
+import { useLayoutEffect } from "react";
 
 export const getWindowSize = () => ({
   width: window.innerWidth,
@@ -19,9 +19,9 @@ const useWindowSize = (
   });
 
   useWindowEventListener("resize", handleChange);
-  useMountEffect(() => {
+  useLayoutEffect(() => {
     handleChange();
-  });
+  }, []);
 
   return dimensions;
 };
