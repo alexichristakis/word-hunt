@@ -21,8 +21,8 @@ type TileProps = {
   status: TileStatus;
   letter: Letter;
   gridRotation: SpringValue<number>;
-  onDragStart?: () => void;
-  onDrag?: (x: number, y: number) => void;
+  onDragStart?: (xy: [number, number]) => void;
+  onDrag?: (xy: [number, number]) => void;
   onDragEnd?: () => void;
 };
 
@@ -39,8 +39,8 @@ const Tile: FC<TileProps> = ({
 
   useGesture(
     {
-      onDragStart,
-      onDrag: ({ xy: [x, y] }) => onDrag?.(x, y),
+      onDragStart: ({ xy,  }) => onDragStart?.(xy),
+      onDrag: ({ xy }) => onDrag?.(xy),
       onDragEnd,
     },
     {

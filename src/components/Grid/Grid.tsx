@@ -25,29 +25,42 @@ const Grid: FC = () => {
   const { gridSize, tileSize, gridRotation, gridGap, tilePositions } =
     useTilePositions();
 
-  const handleDragStart = useCallbackRef((index: number) => {
-    if (dragging) {
-      return;
-    }
-
+  const updateGridOffset = useCallbackRef(() => {
     const gridRect = gridRef.current?.getBoundingClientRect();
     if (gridRect) {
       gridOffset.current = gridRect;
     }
-
-    setActiveLetter(index);
-    setWord(new Set([index]));
-    setDragging(true);
   });
 
-  const handleDrag = useCallbackRef((px: number, py: number) => {
+  const getAdjustedPointer = useCallbackRef(([px, py]: [number, number]) => {
+    px -= gridOffset.current.x;
+    py -= gridOffset.current.y;
+    return [px, py];
+  });
+
+  const handleDragStart = useCallbackRef(
+    (index: number, xy: [number, number]) => {
+      if (dragging) {
+        return;
+      }
+
+      updateGridOffset();
+      const [px, py] = getAdjustedPointer(xy);
+      dragX.set(px);
+      dragY.set(py);
+
+      setActiveLetter(index);
+      setWord(new Set([index]));
+      setDragging(true);
+    }
+  );
+
+  const handleDrag = useCallbackRef((xy: [number, number]) => {
     if (!dragging || activeLetter === null) {
       return;
     }
 
-    px -= gridOffset.current.x;
-    py -= gridOffset.current.y;
-
+    const [px, py] = getAdjustedPointer(xy);
     dragX.set(px);
     dragY.set(py);
 
@@ -131,7 +144,6 @@ const Grid: FC = () => {
           ),
           width: gridSize,
           maxWidth: gridSize,
-          // columnGap: to([gridGap], (gridGap) => gridGap + 4),
           gap: gridGap,
         }}
       >
@@ -140,7 +152,7 @@ const Grid: FC = () => {
             key={index}
             letter={letter}
             status={word.has(index) ? wordStatus : "none"}
-            onDragStart={() => handleDragStart(index)}
+            onDragStart={(xy) => handleDragStart(index, xy)}
             onDrag={handleDrag}
             onDragEnd={handleDragEnd}
             gridRotation={gridRotation}

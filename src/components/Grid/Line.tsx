@@ -1,11 +1,7 @@
 import { animated, SpringValue, to } from "@react-spring/web";
 import { FC, useMemo } from "react";
 import { TilePositions } from "context/TilePositions/context";
-import useWindowSize from "hooks/useWindowSize";
 import styles from "./Line.module.scss";
-import classNames from "classnames/bind";
-
-const cx = classNames.bind(styles);
 
 export type LineProps = {
   word: Set<number>;
@@ -23,12 +19,11 @@ type Point = {
 type EdgeProps = {
   p1: Point;
   p2: Point;
-  isActive: boolean;
 };
 
 const SEGMENT_STROKE_WIDTH = 12;
 
-const Segment: FC<EdgeProps> = ({ isActive, p1, p2 }) => {
+const Segment: FC<EdgeProps> = ({ p1, p2 }) => {
   const width = to([p1.x, p1.y, p2.x, p2.y], (x1, y1, x2, y2) =>
     Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
   );
@@ -47,7 +42,7 @@ const Segment: FC<EdgeProps> = ({ isActive, p1, p2 }) => {
       className={styles.segment}
       style={{
         left: p1.x,
-        top: p1.y,
+        top: to([p1.y], (y) => y - SEGMENT_STROKE_WIDTH / 2),
         height: SEGMENT_STROKE_WIDTH,
         borderRadius: SEGMENT_STROKE_WIDTH / 2,
         width,
@@ -58,14 +53,12 @@ const Segment: FC<EdgeProps> = ({ isActive, p1, p2 }) => {
 };
 
 const Line: FC<LineProps> = ({
-  tilePositions,
   gridSize,
+  tilePositions,
   word,
   dragX,
   dragY,
 }) => {
-  const { width, height } = useWindowSize();
-
   const segments = useMemo(() => {
     const tiles = Array.from(word.keys());
     const lastTile = tiles.length - 1;
@@ -78,29 +71,14 @@ const Line: FC<LineProps> = ({
     ]);
   }, [word, dragX, tilePositions, dragY]);
 
-  const top = to(
-    [height, gridSize],
-    (height, gridSize) => (height - gridSize) / 2 - SEGMENT_STROKE_WIDTH / 2
-  );
-
-  const left = to(
-    [width, gridSize],
-    (width, gridSize) => (width - gridSize) / 2
-  );
-
   return (
-    <animated.div className={styles.main} style={{ width, height }}>
+    <animated.div className={styles.main}>
       <animated.div
-        className={styles.segments}
-        style={{ top, left, width: gridSize, height: gridSize }}
+        className={styles.line}
+        style={{ width: gridSize, height: gridSize }}
       >
         {segments.map(([p1, p2], index) => (
-          <Segment
-            isActive={index === segments.length - 1}
-            key={`${index}/${segments.length}`}
-            p1={p1}
-            p2={p2}
-          />
+          <Segment key={`${index}/${segments.length}`} p1={p1} p2={p2} />
         ))}
       </animated.div>
     </animated.div>
